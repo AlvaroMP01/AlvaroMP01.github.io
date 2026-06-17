@@ -1,0 +1,174 @@
+---
+import '../styles/global.css';
+import { ui, type Locale } from '../i18n/ui';
+
+interface Props {
+  title: string;
+  description?: string;
+  locale?: Locale;
+  altUrl?: string;
+}
+
+const {
+  title,
+  description = 'Portfolio de Álvaro Morcillo — desarrollador fullstack.',
+  locale = (Astro.currentLocale as Locale | undefined) ?? 'es',
+  altUrl
+} = Astro.props;
+
+const strings = ui[locale];
+
+// Canonical + hreflang: ALWAYS derived from Astro.site. Never hardcode the domain.
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const esUrl = new URL(locale === 'es' ? Astro.url.pathname : altUrl ?? '/', Astro.site);
+const enUrl = new URL(locale === 'en' ? Astro.url.pathname : altUrl ?? '/en/', Astro.site);
+---
+
+<html lang={locale} data-default-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="canonical" href={canonicalUrl.href} />
+    <link rel="alternate" hreflang="es" href={esUrl.href} />
+    <link rel="alternate" hreflang="en" href={enUrl.href} />
+    <link rel="alternate" hreflang="x-default" href={esUrl.href} />
+    <meta name="generator" content={Astro.generator} />
+
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        var THEME_KEY = 'amp-theme';
+        var saved = null;
+        try {
+          saved = localStorage.getItem(THEME_KEY);
+        } catch (e) {}
+        var theme = saved || root.getAttribute('data-default-theme') || 'light';
+        root.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+  <body class="bg-bg text-ink font-sans antialiased">
+    <header class="sticky top-0 z-40 border-b border-line bg-bg/85 backdrop-blur-md">
+      <div class="mx-auto flex h-16 max-w-site items-center justify-between px-5 md:px-8">
+        <a class="flex items-center gap-2.5 font-disp text-base font-semibold tracking-tight" href={locale === 'es' ? '/' : '/en/'}>
+          <span class="grid h-6 w-6 place-items-center rounded-md bg-ink font-mono text-xs font-semibold text-bg">
+            {strings.brand.mark}
+          </span>
+          <span>{strings.brand.name}</span>
+        </a>
+
+        <nav
+          id="nav-links"
+          class="absolute inset-x-0 top-full hidden flex-col items-stretch gap-0 border-b border-line bg-bg px-5 py-1.5 shadow-[0_24px_40px_-28px_rgba(0,0,0,.45)] md:static md:flex md:flex-row md:items-center md:gap-7 md:border-none md:bg-transparent md:p-0 md:shadow-none"
+        >
+          <a class="border-b border-line px-0.5 py-3.5 text-base text-ink md:border-none md:p-0 md:text-sm md:text-muted md:transition-colors md:hover:text-ink" href={strings.nav.projects.href}>{strings.nav.projects.label}</a>
+          <a class="border-b border-line px-0.5 py-3.5 text-base text-ink md:border-none md:p-0 md:text-sm md:text-muted md:transition-colors md:hover:text-ink" href={strings.nav.about.href}>{strings.nav.about.label}</a>
+          <a class="border-b border-line px-0.5 py-3.5 text-base text-ink md:border-none md:p-0 md:text-sm md:text-muted md:transition-colors md:hover:text-ink" href={strings.nav.process.href}>{strings.nav.process.label}</a>
+          <a class="px-0.5 py-3.5 text-base text-ink md:p-0 md:text-sm md:text-muted md:transition-colors md:hover:text-ink" href={strings.nav.contact.href}>{strings.nav.contact.label}</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center gap-2 rounded-full border border-line px-3.5 py-1.5 text-[13px] text-muted">
+            <span class="relative h-1.5 w-1.5 rounded-full bg-[oklch(0.7_0.16_150)]">
+              <span class="absolute -inset-1 rounded-full border border-[oklch(0.7_0.16_150)] opacity-50"></span>
+            </span>
+            <span class="hidden sm:inline">{strings.availability}</span>
+          </span>
+
+          <a
+            class="grid h-[34px] w-9 place-items-center rounded-lg border border-line bg-surface font-mono text-xs text-ink transition-colors hover:border-ink"
+            href={altUrl ?? (locale === 'es' ? '/en/' : '/')}
+            aria-label={strings.langToggle.aria}
+          >
+            {strings.langToggle.label}
+          </a>
+
+          <button
+            id="theme-toggle"
+            type="button"
+            class="grid h-[34px] w-9 place-items-center rounded-lg border border-line bg-surface text-ink transition-colors hover:border-ink"
+            aria-label={strings.themeToggleAria}
+            aria-pressed="false"
+          >
+            <svg class="h-4 w-4 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"></path></svg>
+            <svg class="hidden h-4 w-4 dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"></path></svg>
+          </button>
+
+          <button
+            id="nav-toggle"
+            type="button"
+            class="grid h-[34px] w-9 place-items-center rounded-lg border border-line bg-surface text-ink transition-colors hover:border-ink md:hidden"
+            aria-label={strings.mobileNavAria}
+            aria-expanded="false"
+            aria-controls="nav-links"
+          >
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <slot />
+
+    <footer class="mx-auto flex max-w-site flex-wrap items-center justify-between gap-4 px-5 py-11 md:px-8">
+      <div class="flex flex-col gap-1">
+        <b class="font-disp text-base font-semibold">{strings.brand.fullName}</b>
+        <span class="font-mono text-[13px] text-muted">{strings.footer.role} · © {new Date().getFullYear()}</span>
+      </div>
+      <div class="flex gap-2">
+        <a
+          class="grid h-[34px] w-9 place-items-center rounded-lg border border-line bg-surface font-mono text-xs text-ink transition-colors hover:border-ink"
+          href={altUrl ?? (locale === 'es' ? '/en/' : '/')}
+          aria-label={strings.langToggle.aria}
+        >
+          {strings.langToggle.label}
+        </a>
+      </div>
+    </footer>
+
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        var THEME_KEY = 'amp-theme';
+
+        function applyTheme(theme) {
+          root.setAttribute('data-theme', theme);
+          try {
+            localStorage.setItem(THEME_KEY, theme);
+          } catch (e) {}
+          var btn = document.getElementById('theme-toggle');
+          if (btn) btn.setAttribute('aria-pressed', String(theme === 'dark'));
+        }
+
+        var themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+          themeToggle.addEventListener('click', function () {
+            var current = root.getAttribute('data-theme') || root.getAttribute('data-default-theme') || 'light';
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+          });
+        }
+
+        var navToggle = document.getElementById('nav-toggle');
+        var navLinks = document.getElementById('nav-links');
+        if (navToggle && navLinks) {
+          navToggle.addEventListener('click', function () {
+            var isOpen = navLinks.classList.toggle('flex');
+            navLinks.classList.toggle('hidden');
+            navToggle.setAttribute('aria-expanded', String(isOpen));
+          });
+          navLinks.addEventListener('click', function (e) {
+            if (e.target.closest('a')) {
+              navLinks.classList.add('hidden');
+              navLinks.classList.remove('flex');
+              navToggle.setAttribute('aria-expanded', 'false');
+            }
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

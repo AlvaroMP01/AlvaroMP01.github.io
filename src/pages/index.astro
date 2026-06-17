@@ -1,17 +1,19 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Álvaro Morcillo — Desarrollador Fullstack"
+  description="Portfolio de Álvaro Morcillo, desarrollador fullstack. Proyectos, stack y contacto."
+  locale="es"
+  altUrl="/en/"
+>
+  <section class="mx-auto max-w-site px-5 py-16 md:px-8 md:py-24">
+    <h1 class="max-w-[16ch] font-disp text-[clamp(38px,8.5vw,80px)] font-semibold leading-[1.05] tracking-tight">
+      Construyo producto de <span class="text-ac">extremo a extremo.</span>
+    </h1>
+    <p class="mt-4 max-w-[54ch] text-lg text-muted">
+      Frontend, backend y datos con el mismo criterio. El home completo llega en la fase 5.
+    </p>
+  </section>
+</BaseLayout>
