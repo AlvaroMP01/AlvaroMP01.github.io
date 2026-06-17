@@ -1,0 +1,146 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import { ui, type Locale } from '../i18n/ui';
+
+interface Props {
+  entry: CollectionEntry<'projects'>;
+  altUrl?: string;
+}
+
+const { entry, altUrl } = Astro.props;
+const { data } = entry;
+const locale = data.locale as Locale;
+const strings = ui[locale];
+const p = strings.project;
+
+// "Siguiente proyecto": another project in the same locale, ordered after this
+// one. Picks the next by `order`, wrapping to the first if this one is last.
+// Hidden entirely if no other project exists yet (only Tourment today).
+const siblings = (await getCollection('projects', (e) => e.data.locale === locale && e.data.slug !== data.slug)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const next = siblings.find((s) => s.data.order > data.order) ?? siblings[0];
+const nextHref = next ? (locale === 'es' ? `/proyectos/${next.data.slug}` : `/en/projects/${next.data.slug}`) : undefined;
+
+const backHref = locale === 'es' ? '/#proyectos' : '/en/#projects';
+---
+
+<BaseLayout title={`${data.title} — Álvaro Morcillo`} description={data.tagline} locale={locale} altUrl={altUrl}>
+  <div style={`--ac: ${data.accentColor}`}>
+    <div class="mx-auto max-w-site px-5 md:px-8">
+      <a class="mt-7 inline-flex items-center gap-2 font-mono text-[13px] text-muted transition-colors hover:text-ink" href={backHref}>
+        <span aria-hidden="true">←</span>
+        <span>{p.back}</span>
+      </a>
+    </div>
+
+    <section class="border-b border-line pb-12 pt-8">
+      <div class="mx-auto max-w-site px-5 md:px-8">
+        <div class="mb-2 mt-3 flex items-center gap-4">
+          <span class="h-[18px] w-[18px] flex-none rounded-[5px] bg-ac"></span>
+          <h1 class="font-disp text-[clamp(44px,7vw,86px)] font-semibold leading-[1] tracking-tight">{data.title}</h1>
+        </div>
+        <p class="mt-1.5 max-w-[50ch] text-xl text-muted">{data.tagline}</p>
+
+        {(data.demoUrl || data.repoUrl || data.docsUrl) && (
+          <div class="mt-7 flex flex-wrap gap-2.5">
+            {data.demoUrl && (
+              <a class="inline-flex items-center gap-2 rounded-lg bg-ac px-4 py-2.5 text-sm font-medium text-accent-ink transition-opacity hover:opacity-90" href={data.demoUrl} target="_blank" rel="noopener noreferrer">
+                {p.demo} <span aria-hidden="true">↗</span>
+              </a>
+            )}
+            {data.repoUrl && (
+              <a class="inline-flex items-center gap-2 rounded-lg border border-line bg-surface px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:border-ink" href={data.repoUrl} target="_blank" rel="noopener noreferrer">
+                {p.repo}
+              </a>
+            )}
+            {data.docsUrl && (
+              <a class="inline-flex items-center gap-2 rounded-lg border border-line bg-surface px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:border-ink" href={data.docsUrl} target="_blank" rel="noopener noreferrer">
+                {p.docs} <span aria-hidden="true" class="font-mono">→</span>
+              </a>
+            )}
+          </div>
+        )}
+
+        <dl class="mt-8 grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-px overflow-hidden rounded-2xl border border-line bg-line">
+          <div class="bg-surface px-[18px] py-4">
+            <dt class="mb-1.5 font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted">{p.role}</dt>
+            <dd class="text-sm font-medium">{data.role}</dd>
+          </div>
+          <div class="bg-surface px-[18px] py-4">
+            <dt class="mb-1.5 font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted">{p.year}</dt>
+            <dd class="text-sm font-medium">{data.year}</dd>
+          </div>
+          <div class="bg-surface px-[18px] py-4">
+            <dt class="mb-1.5 font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted">{p.stack}</dt>
+            <dd class="text-sm font-medium">{data.stack.join(' · ')}</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="border-b border-line py-12">
+      <div class="mx-auto max-w-site px-5 md:px-8">
+        <Image
+          src={data.cover}
+          alt={data.title}
+          widths={[480, 768, 1160]}
+          sizes="(min-width: 1160px) 1160px, 100vw"
+          class="aspect-video w-full rounded-2xl border border-line object-cover"
+        />
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-site px-5 py-12 md:px-8">
+      <div
+        class="[&_h2]:font-disp [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:mt-14 [&_h2]:mb-5 [&_h2]:first:mt-0
+          [&_h3]:font-disp [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mt-8 [&_h3]:mb-3
+          [&_p]:max-w-[62ch] [&_p]:mb-4 [&_p]:leading-relaxed [&_p]:text-muted
+          [&_strong]:font-medium [&_strong]:text-ink
+          [&_a]:text-ac [&_a]:underline [&_a]:underline-offset-2
+          [&_ul]:mb-4 [&_ul]:max-w-[62ch] [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5 [&_ul]:text-muted
+          [&_ol]:mb-4 [&_ol]:max-w-[62ch] [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-5 [&_ol]:text-muted
+          [&_li::marker]:text-ac
+          [&_code]:rounded [&_code]:bg-raised [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em]
+          [&_blockquote]:border-l-2 [&_blockquote]:border-ac [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-muted"
+      >
+        <slot />
+      </div>
+    </section>
+
+    {data.screenshots && data.screenshots.length > 0 && (
+      <section class="border-t border-line py-12">
+        <div class="mx-auto max-w-site px-5 md:px-8">
+          <span class="mb-4 inline-block font-mono text-[13px] uppercase tracking-[0.08em] text-muted">{p.gallery}</span>
+          <div class="grid grid-cols-2 gap-3.5 sm:grid-cols-3">
+            {data.screenshots.map((shot, i) => (
+              <Image
+                src={shot}
+                alt={`${data.title} — ${p.gallery} ${i + 1}`}
+                widths={[320, 480, 640]}
+                sizes="(min-width: 600px) 33vw, 50vw"
+                class="aspect-[4/3] w-full rounded-xl border border-line object-cover"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    {next && nextHref && (
+      <section class="border-t border-line py-12">
+        <div class="mx-auto flex max-w-site flex-wrap items-center justify-between gap-6 px-5 md:px-8">
+          <div class="flex flex-col gap-1.5">
+            <span class="text-muted">{p.nextProject}</span>
+            <a class="group inline-flex items-center gap-3 font-disp text-2xl font-semibold tracking-tight" href={nextHref}>
+              {next.data.title}
+              <span class="font-mono text-ac transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    )}
+  </div>
+</BaseLayout>

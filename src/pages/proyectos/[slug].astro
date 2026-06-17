@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from 'astro:content';
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('projects', (entry) => entry.data.locale === 'es');
+  const enEntries = await getCollection('projects', (entry) => entry.data.locale === 'en');
+
+  return entries.map((entry) => {
+    // altUrl only set if the same project also exists in EN.
+    const hasEn = enEntries.some((e) => e.data.slug === entry.data.slug);
+    return {
+      params: { slug: entry.data.slug },
+      props: { entry, altUrl: hasEn ? `/en/projects/${entry.data.slug}` : undefined }
+    };
+  });
+}
+
+const { entry, altUrl } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<ProjectLayout entry={entry} altUrl={altUrl}>
+  <Content />
+</ProjectLayout>

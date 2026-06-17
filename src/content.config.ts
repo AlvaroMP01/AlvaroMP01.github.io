@@ -6,7 +6,16 @@ import { glob } from 'astro/loaders';
 // distinguishes them. Markdown lives in src/content/projects/ — either flat
 // (`tourment.es.md` / `tourment.en.md`) or nested (`es/tourment.md`).
 const projects = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
+  // Two locale files share the same `slug` (e.g. `tourment.es.md` /
+  // `tourment.en.md`). The default generateId strips locale-ish suffixes,
+  // so both files collapse to id "tourment" and one entry silently
+  // overwrites the other. Use the full relative path (sans extension) as
+  // the id instead so every locale file stays a distinct collection entry.
+  loader: glob({
+    pattern: '**/*.md',
+    base: './src/content/projects',
+    generateId: ({ entry }) => entry.replace(/\.md$/, '')
+  }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),

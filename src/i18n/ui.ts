@@ -27,6 +27,17 @@ export const ui = {
     footer: {
       role: 'Desarrollador Fullstack · España',
       rights: 'Todos los derechos reservados.'
+    },
+    project: {
+      back: 'Volver a proyectos',
+      role: 'Rol',
+      year: 'Año',
+      stack: 'Stack',
+      demo: 'Demo',
+      repo: 'Repositorio',
+      docs: 'Docs',
+      gallery: 'Galería',
+      nextProject: 'Siguiente proyecto'
     }
   },
   en: {
@@ -51,6 +62,17 @@ export const ui = {
     footer: {
       role: 'Fullstack Developer · Spain',
       rights: 'All rights reserved.'
+    },
+    project: {
+      back: 'Back to projects',
+      role: 'Role',
+      year: 'Year',
+      stack: 'Stack',
+      demo: 'Demo',
+      repo: 'Repository',
+      docs: 'Docs',
+      gallery: 'Gallery',
+      nextProject: 'Next project'
     }
   }
 } as const;
