@@ -12,6 +12,7 @@ const t = home[locale].contact;
 
 const CONTACT_EMAIL = 'alvaromorcillo2001@gmail.com';
 const GITHUB_URL = 'https://github.com/AlvaroMP01';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/alvaromorcillo-dev/';
 ---
 
 <section id={sectionId} class="py-13 md:py-[72px]">
@@ -37,6 +38,15 @@ const GITHUB_URL = 'https://github.com/AlvaroMP01';
           <span class="flex min-w-0 flex-1 flex-col">
             <b class="whitespace-nowrap text-sm font-medium">{t.githubLabel}</b>
             <span class="truncate font-mono text-[12.5px] text-muted">github.com/AlvaroMP01</span>
+          </span>
+          <span class="ml-auto font-mono text-faint" aria-hidden="true">→</span>
+        </a>
+
+        <a class="flex items-center gap-3.5 rounded-[11px] border border-line bg-surface p-4 transition-colors hover:border-ink" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+          <svg class="h-5 w-5 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          <span class="flex min-w-0 flex-1 flex-col">
+            <b class="whitespace-nowrap text-sm font-medium">{t.linkedinLabel}</b>
+            <span class="truncate font-mono text-[12.5px] text-muted">linkedin.com/in/alvaromorcillo-dev</span>
           </span>
           <span class="ml-auto font-mono text-faint" aria-hidden="true">→</span>
         </a>
