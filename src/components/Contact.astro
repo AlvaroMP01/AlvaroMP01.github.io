@@ -13,6 +13,9 @@ const t = home[locale].contact;
 const CONTACT_EMAIL = 'alvaromorcillo2001@gmail.com';
 const GITHUB_URL = 'https://github.com/AlvaroMP01';
 const LINKEDIN_URL = 'https://www.linkedin.com/in/alvaromorcillo-dev/';
+const CV_URL = '/cv-alvaro-morcillo.pdf';
+const CERT_URL = '/certificado-ia-alvaro-morcillo.pdf';
+const SOFTSKILLS_URL = '/evaluacion-softskills-kodo.pdf';
 ---
 
 <section id={sectionId} class="py-13 md:py-[72px]">
@@ -51,7 +54,37 @@ const LINKEDIN_URL = 'https://www.linkedin.com/in/alvaromorcillo-dev/';
           <span class="ml-auto font-mono text-faint" aria-hidden="true">→</span>
         </a>
 
-        {/* "Descargar CV" / "Download CV" omitted: no public/CV.pdf yet. Phase 7: add CV.pdf and reinstate this contact method. */}
+        <div class="mt-1 flex items-center gap-3 pt-1">
+          <span class="font-mono text-[11px] uppercase tracking-[0.1em] text-faint">{t.docs.heading}</span>
+          <span class="h-px flex-1 bg-line"></span>
+        </div>
+
+        <a download href={CV_URL} class="flex items-center gap-3.5 rounded-[11px] border border-line bg-surface p-4 transition-colors hover:border-ink">
+          <svg class="h-5 w-5 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span class="flex min-w-0 flex-1 flex-col">
+            <b class="whitespace-nowrap text-sm font-medium">{t.docs.cv}</b>
+            <span class="truncate font-mono text-[12.5px] text-muted">{t.docs.cvSub}</span>
+          </span>
+          <span class="ml-auto font-mono text-faint" aria-hidden="true">↓</span>
+        </a>
+
+        <a href={CERT_URL} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3.5 rounded-[11px] border border-line bg-surface p-4 transition-colors hover:border-ink">
+          <svg class="h-5 w-5 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+          <span class="flex min-w-0 flex-1 flex-col">
+            <b class="whitespace-nowrap text-sm font-medium">{t.docs.cert}</b>
+            <span class="truncate font-mono text-[12.5px] text-muted">{t.docs.certSub}</span>
+          </span>
+          <span class="ml-auto font-mono text-faint" aria-hidden="true">↗</span>
+        </a>
+
+        <a href={SOFTSKILLS_URL} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3.5 rounded-[11px] border border-line bg-surface p-4 transition-colors hover:border-ink">
+          <svg class="h-5 w-5 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          <span class="flex min-w-0 flex-1 flex-col">
+            <b class="whitespace-nowrap text-sm font-medium">{t.docs.soft}</b>
+            <span class="truncate font-mono text-[12.5px] text-muted">{t.docs.softSub}</span>
+          </span>
+          <span class="ml-auto font-mono text-faint" aria-hidden="true">↗</span>
+        </a>
       </div>
     </div>
 

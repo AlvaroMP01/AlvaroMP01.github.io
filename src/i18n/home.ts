@@ -71,6 +71,15 @@ export const home = {
       emailLabel: 'Email',
       githubLabel: 'GitHub',
       linkedinLabel: 'LinkedIn',
+      docs: {
+        heading: 'Documentos',
+        cv: 'Descargar CV',
+        cvSub: 'PDF',
+        cert: 'Certificación en IA',
+        certSub: 'Ver · PDF',
+        soft: 'Evaluación de soft skills',
+        softSub: 'Kodo People · PDF'
+      },
       formSending: 'Enviando…',
       formSuccess: '¡Mensaje enviado! Te respondo en menos de 24 h.',
       formError: 'No se pudo enviar. Escríbeme directamente por email.',
@@ -149,6 +158,15 @@ export const home = {
       emailLabel: 'Email',
       githubLabel: 'GitHub',
       linkedinLabel: 'LinkedIn',
+      docs: {
+        heading: 'Documents',
+        cv: 'Download CV',
+        cvSub: 'PDF',
+        cert: 'AI Certification',
+        certSub: 'View · PDF',
+        soft: 'Soft-skills assessment',
+        softSub: 'Kodo People · PDF'
+      },
       formSending: 'Sending…',
       formSuccess: "Message sent! I'll reply within 24 h.",
       formError: 'Could not send. Email me directly instead.',
