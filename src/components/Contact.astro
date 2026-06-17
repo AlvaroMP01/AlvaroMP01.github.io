@@ -1,0 +1,97 @@
+---
+import { home } from '../i18n/home';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  sectionId: string;
+}
+
+const { locale, sectionId } = Astro.props;
+const t = home[locale].contact;
+
+const CONTACT_EMAIL = 'alvaromorcillo2001@gmail.com';
+const GITHUB_URL = 'https://github.com/AlvaroMP01';
+---
+
+<section id={sectionId} class="py-13 md:py-[72px]">
+  <div class="mx-auto grid max-w-site grid-cols-1 items-start gap-8 px-5 md:grid-cols-2 md:gap-12 md:px-8">
+    <div>
+      <span class="mb-3.5 inline-block font-mono text-xs uppercase tracking-[0.1em] text-muted">{t.kicker}</span>
+      <h2 class="mb-4 max-w-[14ch] font-disp text-[clamp(30px,4vw,48px)] font-semibold leading-[1.05] tracking-tight">{t.heading}</h2>
+      <p class="mb-6 max-w-[42ch] text-lg text-muted">{t.lead}</p>
+
+      <div class="flex flex-col gap-2.5">
+        {/* Primary working contact: real mailto, opens the visitor's mail client. */}
+        <a class="flex items-center gap-3.5 rounded-[11px] border border-line bg-surface p-4 transition-colors hover:border-ink" href={`mailto:${CONTACT_EMAIL}`}>
+          <svg class="h-5 w-5 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 7 10 6 10-6"></path></svg>
+          <span class="flex min-w-0 flex-1 flex-col">
+            <b class="whitespace-nowrap text-sm font-medium">{t.emailLabel}</b>
+            <span class="truncate font-mono text-[12.5px] text-muted">{CONTACT_EMAIL}</span>
+          </span>
+          <span class="ml-auto font-mono text-faint" aria-hidden="true">→</span>
+        </a>
+
+        <a class="flex items-center gap-3.5 rounded-[11px] border border-line bg-surface p-4 transition-colors hover:border-ink" href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
+          <svg class="h-5 w-5 text-muted" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.5 2.9 8.3 6.8 9.7.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.3-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5 3.9-1.4 6.8-5.2 6.8-9.7C22 6.6 17.5 2 12 2Z"></path></svg>
+          <span class="flex min-w-0 flex-1 flex-col">
+            <b class="whitespace-nowrap text-sm font-medium">{t.githubLabel}</b>
+            <span class="truncate font-mono text-[12.5px] text-muted">github.com/AlvaroMP01</span>
+          </span>
+          <span class="ml-auto font-mono text-faint" aria-hidden="true">→</span>
+        </a>
+
+        {/* "Descargar CV" / "Download CV" omitted: no public/CV.pdf yet. Phase 7: add CV.pdf and reinstate this contact method. */}
+      </div>
+    </div>
+
+    {/*
+      Form markup kept for visual completeness only. NO submit handler is wired
+      on purpose — faking a "message sent" state would violate the golden rule
+      (never fake a submission). Real handler (Web3Forms or mailto) wired in
+      phase 7; until then this form does not submit and shows no success message.
+    */}
+    <form class="flex flex-col gap-3.5 rounded-2xl border border-line bg-surface p-6" onsubmit="return false">
+      <div class="flex flex-col gap-1.5">
+        <label class="font-mono text-[11px] uppercase tracking-[0.06em] text-muted" for="contact-name">{t.formName}</label>
+        <input
+          id="contact-name"
+          type="text"
+          placeholder={t.formNamePh}
+          disabled
+          class="rounded-[9px] border border-line bg-bg px-3.5 py-2.5 text-[15px] text-ink transition-colors focus:border-ac focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+        />
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="font-mono text-[11px] uppercase tracking-[0.06em] text-muted" for="contact-email">Email</label>
+        <input
+          id="contact-email"
+          type="email"
+          placeholder={t.formEmailPh}
+          disabled
+          class="rounded-[9px] border border-line bg-bg px-3.5 py-2.5 text-[15px] text-ink transition-colors focus:border-ac focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+        />
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="font-mono text-[11px] uppercase tracking-[0.06em] text-muted" for="contact-message">{t.formMessage}</label>
+        <textarea
+          id="contact-message"
+          rows="4"
+          placeholder={t.formMessagePh}
+          disabled
+          class="resize-vertical rounded-[9px] border border-line bg-bg px-3.5 py-2.5 text-[15px] text-ink transition-colors focus:border-ac focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+        ></textarea>
+      </div>
+      <button
+        type="submit"
+        disabled
+        title={t.formNote}
+        class="inline-flex items-center justify-center gap-2 rounded-lg border border-transparent bg-line px-[18px] py-2.5 text-sm font-medium text-muted disabled:cursor-not-allowed"
+      >
+        <span>{t.formSubmit}</span>
+        <span class="font-mono" aria-hidden="true">→</span>
+      </button>
+      <span class="font-mono text-[13px] text-muted">{t.formNote}</span>
+    </form>
+  </div>
+</section>

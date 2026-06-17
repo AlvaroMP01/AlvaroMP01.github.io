@@ -1,0 +1,52 @@
+---
+import { home } from '../i18n/home';
+import type { Locale } from '../i18n/ui';
+import Stack from './Stack.astro';
+
+interface Props {
+  locale: Locale;
+  projectsHref: string;
+}
+
+const { locale, projectsHref } = Astro.props;
+const t = home[locale].hero;
+---
+
+<section class="border-b border-line py-13 md:py-[86px]">
+  <div class="mx-auto max-w-site px-5 md:px-8">
+    <span class="inline-flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.1em] text-muted">
+      <span class="h-px w-[26px] bg-line-2"></span>
+      <span>{t.eyebrow}</span>
+    </span>
+
+    <h1 class="my-4 max-w-[16ch] font-disp text-[clamp(38px,8.5vw,80px)] font-semibold leading-[1.05] tracking-tight">
+      {t.headingLine1} <span class="text-ac">{t.headingAccent}</span>
+    </h1>
+
+    <p class="max-w-[54ch] text-lg text-muted md:text-xl">{t.subheading}</p>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a class="inline-flex items-center gap-2 rounded-lg border border-ink bg-ink px-[18px] py-2.5 text-sm font-medium text-bg transition-opacity hover:opacity-90" href={projectsHref}>
+        <span>{t.ctaPrimary}</span>
+        <span class="font-mono" aria-hidden="true">→</span>
+      </a>
+      {/* "Descargar CV" / "Download CV" omitted: no public/CV.pdf yet. Phase 7: add CV.pdf and reinstate this button. */}
+    </div>
+
+    <div class="mt-11 flex flex-wrap items-center gap-7 border-t border-line pt-6">
+      <Stack locale={locale} />
+
+      <div class="flex flex-wrap gap-[22px]">
+        {/* TODO phase 7: replace with REAL Lighthouse-verified numbers. These are provisional placeholders, not measured values. */}
+        {t.metrics.map((m) => (
+          <div class="flex flex-col">
+            <b class="font-disp text-2xl font-semibold tracking-tight">
+              {m.value}<span class="text-[13px] font-normal text-muted">{m.unit}</span>
+            </b>
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.08em] text-faint">{m.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

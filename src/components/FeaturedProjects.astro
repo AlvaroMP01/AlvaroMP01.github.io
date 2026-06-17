@@ -1,0 +1,69 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import { home } from '../i18n/home';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  sectionId: string;
+}
+
+const { locale, sectionId } = Astro.props;
+const t = home[locale].projects;
+
+const entries = (await getCollection('projects', (e) => e.data.locale === locale && e.data.featured)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const hrefFor = (slug: string) => (locale === 'es' ? `/proyectos/${slug}` : `/en/projects/${slug}`);
+---
+
+<section id={sectionId} class="border-b border-line py-13 md:py-[72px]">
+  <div class="mx-auto max-w-site px-5 md:px-8">
+    <div class="mb-10 flex flex-wrap items-end justify-between gap-6">
+      <h2 class="max-w-[18ch] font-disp text-[clamp(26px,3.2vw,38px)] font-semibold leading-[1.05] tracking-tight">{t.heading}</h2>
+      <span class="self-start pt-2 font-mono text-xs uppercase tracking-[0.1em] text-muted">{t.kicker}</span>
+    </div>
+
+    {entries.length > 0 && (
+      <div class="grid grid-cols-1 gap-[22px] md:grid-cols-2">
+        {entries.map((entry) => {
+          const { data } = entry;
+          return (
+            <a
+              class="group flex flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-[border-color,transform] duration-150 hover:-translate-y-[3px] hover:border-line-2"
+              style={`--ac: ${data.accentColor}`}
+              href={hrefFor(data.slug)}
+            >
+              <Image
+                src={data.cover}
+                alt={data.title}
+                widths={[400, 600, 800]}
+                sizes="(min-width: 760px) 50vw, 100vw"
+                class="aspect-[16/10] w-full border-b border-line object-cover"
+              />
+              <div class="flex flex-1 flex-col gap-3.5 p-5 md:p-6">
+                <div class="flex items-center gap-[11px]">
+                  <span class="h-[11px] w-[11px] rounded-full bg-ac"></span>
+                  <h3 class="font-disp text-[22px] font-semibold tracking-tight">{data.title}</h3>
+                  <span class="ml-auto font-mono text-xs text-faint">{data.year}</span>
+                </div>
+                <p class="text-[14.5px] text-muted">{data.tagline}</p>
+                <div class="flex flex-wrap gap-1.5">
+                  {data.stack.map((s) => (
+                    <span class="whitespace-nowrap rounded-md border border-line px-2 py-1 font-mono text-[11px] text-muted">{s}</span>
+                  ))}
+                </div>
+                <span class="-mx-5 -mb-5 mt-1.5 flex items-center gap-2 border-t border-line px-5 py-[15px] text-[13.5px] font-medium text-ink transition-colors group-hover:bg-raised md:-mx-6 md:-mb-6 md:px-6">
+                  <span>{t.viewCase}</span>
+                  <span class="ml-auto font-mono transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+                </span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    )}
+  </div>
+</section>
