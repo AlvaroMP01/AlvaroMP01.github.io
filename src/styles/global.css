@@ -1,1 +1,83 @@
 @import "tailwindcss";
+
+/* Self-hosted fonts (no external request, no render-blocking).
+   Variable axis covers all weights for sans/display (per-subset unicode-range
+   means browsers only fetch what the page uses). IBM Plex Mono has no variable
+   build, so pull just the latin subset (covers ES/EN) at the two weights the
+   design uses (400, 600). */
+@import "@fontsource-variable/ibm-plex-sans";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource/ibm-plex-mono/latin-400.css";
+@import "@fontsource/ibm-plex-mono/latin-600.css";
+
+/* Dark mode is driven by a `data-theme` attribute on <html> (set by the theme
+   toggle + an inline head script — added with the BaseLayout). This wires the
+   `dark:` variant to that attribute instead of the OS preference. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ── Design tokens — direction "Estudio" (minimal, light/dark) ──
+   Raw semantic variables. Colors are overridden under [data-theme="dark"] and
+   cascade everywhere through the @theme inline mapping below. */
+:root {
+  /* surfaces & ink */
+  --bg: #fbfbf9;
+  --surface: #ffffff;
+  --raised: #f4f3ee;
+  --ink: #17160f;
+  --muted: #6b6a60;
+  --faint: #9a988c;
+  --line: #e6e4db;
+  --line-2: #d7d4c9;
+
+  /* accent: site default + per-project accent (--ac, set inline per project) */
+  --accent: oklch(0.55 0.14 256);
+  --accent-ink: #ffffff;
+  --ac: var(--accent);
+
+  /* screenshot placeholder gradient */
+  --ph1: #f0eee6;
+  --ph2: #e7e4da;
+}
+
+[data-theme="dark"] {
+  --bg: #100f0d;
+  --surface: #1a1916;
+  --raised: #211f1b;
+  --ink: #f3f1ea;
+  --muted: #9d9b90;
+  --faint: #6f6d63;
+  --line: #29271f;
+  --line-2: #34322a;
+  --accent: oklch(0.72 0.13 256);
+  --ph1: #1e1c18;
+  --ph2: #262420;
+}
+
+/* ── Expose tokens to Tailwind so utilities exist (bg-surface, text-muted,
+   border-line, text-ac, font-disp, max-w-site…). `inline` keeps the var()
+   reference, so dark-mode overrides and the per-project --ac cascade. ── */
+@theme inline {
+  --font-sans: "IBM Plex Sans Variable", "IBM Plex Sans", system-ui, sans-serif;
+  --font-disp: "Space Grotesk Variable", "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  /* per-project accent — driven by --ac (defaults to --accent) */
+  --color-ac: var(--ac);
+
+  /* placeholder gradient stops */
+  --color-ph-1: var(--ph1);
+  --color-ph-2: var(--ph2);
+
+  /* content width (mockup --maxw) → max-w-site */
+  --container-site: 1160px;
+}
