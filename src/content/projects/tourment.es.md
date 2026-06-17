@@ -3,59 +3,74 @@ title: "Tourment"
 slug: "tourment"
 locale: "es"
 accentColor: "#E5394B"
-tagline: "Plataforma para organizar y seguir torneos de Valorant: brackets en vivo, inscripciones de equipos y panel de administración."
-role: "Fullstack (solo)"
-year: 2024
-stack: ["Python", "Flask", "MySQL", "React", "JWT"]
+tagline: "Plataforma full-stack para organizar torneos amateur de VALORANT en España: inscripciones, brackets de eliminación directa, estadísticas de jugador y panel de administración."
+role: "Desarrollo fullstack · TFG"
+year: 2025
+stack: ["React", "Vite", "Python · Flask", "MySQL", "JWT", "Docker"]
+demoUrl: "https://tourment.vercel.app"
+repoUrl: "https://github.com/AlvaroMP01/Tourment"
 cover: "../../assets/projects/tourment/cover.png"
 screenshots:
-  - "../../assets/projects/tourment/shot-1.png"
-  - "../../assets/projects/tourment/shot-2.png"
-  - "../../assets/projects/tourment/shot-3.png"
+  - "../../assets/projects/tourment/bracket.png"
+  - "../../assets/projects/tourment/tournament-detail.png"
+  - "../../assets/projects/tourment/players-ranking.png"
+  - "../../assets/projects/tourment/teams-ranking.png"
+  - "../../assets/projects/tourment/admin-panel.png"
+  - "../../assets/projects/tourment/news.png"
 featured: true
 order: 1
 ---
 
-<!-- DRAFT: copy provisional, se finaliza en la fase 6 junto con las capturas reales. -->
-
 ## Contexto
 
-Las comunidades de Valorant organizan torneos por Discord y hojas de cálculo:
-inscripciones desordenadas, brackets a mano y resultados que se pierden. Tourment
-nace para resolverlo con una sola herramienta: un organizador monta un torneo en
-minutos y los equipos siguen su progreso en tiempo real.
+La escena amateur de VALORANT en España organiza sus torneos a base de Discord
+y hojas de cálculo: inscripciones desperdigadas, brackets a mano y estadísticas
+que se pierden entre partida y partida. Tourment centraliza todo eso en una
+sola herramienta: registro de equipos (plantillas de hasta 7 jugadores), un
+flujo de aprobación por parte del organizador, brackets de eliminación
+directa, reporte de partidas con estadísticas por jugador, rankings públicos
+de jugadores y equipos, un calendario de eventos y noticias del ecosistema
+importadas del feed RSS de VLR.gg, todo ello sobre un panel de administración
+con roles separados.
 
-Lo construí entero yo: diseño de la base de datos, API en Flask, frontend en
-React y la lógica de emparejamiento de los brackets.
+Es mi Trabajo de Fin de Grado, construido de punta a punta: modelo de datos,
+API en Flask, frontend en React y la lógica de emparejamiento de los brackets.
 
 ## Decisiones técnicas
 
 El diferenciador real del proyecto no es la interfaz, sino las decisiones de
 backend que la sostienen.
 
-**Autenticación endurecida.** El acceso usa JWT con expiración corta y renovación
-controlada, y las contraseñas se almacenan con **PBKDF2** (derivación de clave con
-salt e iteraciones), no con un hash simple. Para un gestor de torneos con roles de
-administrador, capitán de equipo y jugador, una autenticación débil habría sido el
-punto de fallo más caro de todo el sistema.
-
-**Modelo relacional en MySQL.** Torneos, equipos, jugadores y partidas son
-relaciones puras con restricciones reales (un jugador no puede estar en dos
-equipos del mismo torneo, una partida no puede cerrarse sin resultado). Un
-esquema relacional con claves foráneas evita estados imposibles que una base
-documental habría permitido sin disciplina adicional en el código.
-
-**Flask sobre un framework más pesado.** La API no necesitaba un CMS ni
-generación de vistas en servidor: necesitaba rutas claras y control total sobre
-el ciclo de petición/respuesta para servir a un frontend en React.
+- **Contraseñas con PBKDF2.** Se almacenan con `pbkdf2_sha256` (Werkzeug), nunca
+  en texto claro.
+- **JWT de vida corta.** Expiran a las 12 horas y se firman con un secreto de
+  más de 32 caracteres; la aplicación se niega a arrancar si ese secreto no
+  está configurado.
+- **Login protegido contra fuerza bruta y enumeración.** Limitado a 5
+  intentos por minuto y 20 por hora por IP, y devuelve el mismo coste y el
+  mismo mensaje de error tanto si el usuario existe como si no, para no dar
+  pistas sobre qué cuentas son reales.
+- **CORS restrictivo.** Lista blanca de orígenes definida por variables de
+  entorno, no "cualquier origen".
+- **Algoritmo de bracket de eliminación directa** para tamaños estrictos de
+  4, 8 o 16 equipos: el ganador avanza automáticamente al hueco
+  correspondiente de la siguiente ronda. Una vez generado, el árbol no se
+  edita a mano — cualquier cambio lo regenera entero, así el bracket nunca
+  queda en un estado inconsistente.
+- **Imágenes procesadas en memoria con Pillow**: se valida el tipo
+  (JPEG/PNG/WEBP), se redimensionan a 256×256 y se recomprimen por debajo de
+  500 KB antes de guardarlas internamente, sin URLs externas. Si el commit a
+  base de datos falla, el archivo recién subido se borra para no dejar
+  huérfanos.
+- **Blueprints de Flask por dominio** con decoradores encadenados
+  (`@token_required` seguido de `@role_required` o `@admin_required`), de
+  forma que la autorización no se repite en cada endpoint.
 
 ## Proceso y aprendizajes
 
-Generar brackets correctos con número impar de equipos y *byes* obligó a
-escribir primero los casos límite y después la interfaz, no al revés. Fue la
-parte del proyecto donde más se notó la diferencia entre "funciona en el caso
-feliz" y "funciona siempre".
-
-La capa de autenticación se construyó pensando en qué pasaría si se filtrara la
-base de datos: con PBKDF2 y salts por usuario, un volcado de la tabla de
-contraseñas no es, por sí solo, una contraseña en texto plano.
+La parte difícil no fue la interfaz, sino los casos límite del bracket
+(avances impares, coherencia del árbol): esa lógica se escribió antes que la
+interfaz, no después. La capa de seguridad se diseñó haciéndome una pregunta
+muy concreta — "¿qué pasa si se filtra la base de datos?" — y la respuesta fue
+un hash robusto con salt por usuario, de forma que un volcado de la tabla no
+es, por sí solo, una contraseña.
