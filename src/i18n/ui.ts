@@ -9,7 +9,6 @@ export const ui = {
     brand: {
       name: 'Álvaro Morcillo',
       fullName: 'Álvaro Morcillo Pérez',
-      mark: 'A'
     },
     nav: {
       projects: { label: 'Proyectos', href: '/#proyectos' },
@@ -44,7 +43,6 @@ export const ui = {
     brand: {
       name: 'Álvaro Morcillo',
       fullName: 'Álvaro Morcillo Pérez',
-      mark: 'A'
     },
     nav: {
       projects: { label: 'Projects', href: '/en/#projects' },
