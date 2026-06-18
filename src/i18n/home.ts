@@ -31,6 +31,7 @@ export const home = {
     about: {
       heading: 'Sobre mí',
       kicker: '02 — Perfil',
+      viewLabel: 'Ver',
       bio: [
         'Desarrollador fullstack afincado en Granada, abierto a remoto. Titulado en FP Superior de Desarrollo de Aplicaciones Web (DAW) y certificado en Desarrollo con IA aplicada a producción.',
         'En mis prácticas en DoctorSEO integré modelos generativos de IA (imagen y texto) en proyectos web reales —de la configuración al despliegue— además de paneles de administración y landing pages con React, Node.js y Python. Busco mi primer rol como desarrollador, y disfruto la parte de decidir: qué stack, qué arquitectura, qué se simplifica.'
@@ -39,22 +40,26 @@ export const home = {
         {
           title: 'Certificación en IA',
           detail: 'Desarrollo con IA: de 0 a producción · BIG School',
-          highlight: true
+          highlight: true,
+          href: '/certificado-ia-alvaro-morcillo.pdf'
         },
         {
           title: 'FP Superior DAW',
           detail: 'Desarrollo de Aplicaciones Web — titulado',
-          highlight: false
+          highlight: false,
+          href: undefined
         },
         {
           title: 'Inglés B2',
           detail: 'First Certificate · Cambridge',
-          highlight: false
+          highlight: false,
+          href: undefined
         },
         {
           title: 'Soft Skills Pro',
           detail: 'Evaluación · Kodo People',
-          highlight: false
+          highlight: false,
+          href: '/evaluacion-softskills-kodo.pdf'
         }
       ],
       skills: [
@@ -128,6 +133,7 @@ export const home = {
     about: {
       heading: 'About me',
       kicker: '02 — Profile',
+      viewLabel: 'View',
       bio: [
         'Fullstack developer based in Granada, open to remote. Graduate of the higher vocational degree in Web Application Development (DAW) and certified in AI applied to production.',
         "During my placement at DoctorSEO I integrated generative AI models (image and text) into real client web projects —from setup to production— plus admin panels and landing pages built with React, Node.js and Python. I'm looking for my first developer role, and I enjoy the deciding part: which stack, which architecture, what to simplify."
@@ -136,22 +142,26 @@ export const home = {
         {
           title: 'AI Certification',
           detail: 'AI from zero to production · BIG School',
-          highlight: true
+          highlight: true,
+          href: '/certificado-ia-alvaro-morcillo.pdf'
         },
         {
           title: 'Higher VET — DAW',
           detail: 'Web Application Development — graduate',
-          highlight: false
+          highlight: false,
+          href: undefined
         },
         {
           title: 'English B2',
           detail: 'First Certificate · Cambridge',
-          highlight: false
+          highlight: false,
+          href: undefined
         },
         {
           title: 'Soft Skills Pro',
           detail: 'Assessment · Kodo People',
-          highlight: false
+          highlight: false,
+          href: '/evaluacion-softskills-kodo.pdf'
         }
       ],
       skills: [

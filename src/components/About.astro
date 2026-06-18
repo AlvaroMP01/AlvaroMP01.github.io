@@ -25,22 +25,34 @@ const t = home[locale].about;
         ))}
 
         <div class="mt-6 flex flex-col gap-2.5">
-          {t.credentials.map((c) => (
-            <div
-              class:list={[
-                'flex items-center gap-3.5 rounded-xl border border-line bg-surface p-4',
-                { 'border-ac bg-[color-mix(in_oklab,var(--ac)_7%,var(--surface))]': c.highlight }
-              ]}
-            >
-              <span class="grid h-[38px] w-[38px] flex-none place-items-center rounded-[9px] bg-raised text-ac">
-                <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 5 5.6.6-4.2 3.7 1.2 5.5L12 19.5 7 16.8l1.2-5.5L4 7.6 9.6 7z"></path></svg>
-              </span>
-              <div>
-                <b class="block text-[14.5px] font-semibold">{c.title}</b>
-                <span class="text-[13px] text-muted">{c.detail}</span>
-              </div>
-            </div>
-          ))}
+          {t.credentials.map((c) => {
+            const Tag = c.href ? 'a' : 'div';
+            return (
+              <Tag
+                href={c.href}
+                {...(c.href ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                class:list={[
+                  'group flex items-center gap-3.5 rounded-xl border border-line bg-surface p-4',
+                  { 'border-ac bg-[color-mix(in_oklab,var(--ac)_7%,var(--surface))]': c.highlight },
+                  { 'transition-colors hover:border-ink': c.href }
+                ]}
+              >
+                <span class="grid h-[38px] w-[38px] flex-none place-items-center rounded-[9px] bg-raised text-ac">
+                  <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 5 5.6.6-4.2 3.7 1.2 5.5L12 19.5 7 16.8l1.2-5.5L4 7.6 9.6 7z"></path></svg>
+                </span>
+                <div class="min-w-0 flex-1">
+                  <b class="block text-[14.5px] font-semibold">{c.title}</b>
+                  <span class="text-[13px] text-muted">{c.detail}</span>
+                </div>
+                {c.href && (
+                  <span class="ml-auto flex flex-none items-center gap-1 font-mono text-[12px] text-muted transition-colors group-hover:text-ink">
+                    {t.viewLabel}
+                    <span aria-hidden="true">↗</span>
+                  </span>
+                )}
+              </Tag>
+            );
+          })}
         </div>
       </div>
 
