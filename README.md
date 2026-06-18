@@ -1,43 +1,59 @@
-# Astro Starter Kit: Minimal
+# alvaromp01.github.io
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Personal portfolio of **Álvaro Morcillo Pérez** — fullstack developer based in Granada, Spain. Static, bilingual and fast.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+🔗 **Live:** <https://alvaromp01.github.io>
 
-## 🚀 Project Structure
+## Highlights
 
-Inside of your Astro project, you'll see the following folders and files:
+- **Static-first Astro** — ships **zero client-side JavaScript** by default and scores **100/100** Lighthouse performance on desktop.
+- **Native i18n** — Spanish at `/`, English at `/en/`, with separate, indexable URLs (no client-side text swapping).
+- **Light / dark theme** — driven by a `data-theme` attribute, persisted to `localStorage`, with no flash of the wrong theme on load.
+- **Projects as content** — every project is a Markdown file validated by a Zod schema; a single `ProjectLayout` is the only project template, themed per project by an accent colour.
+- **Self-hosted fonts** (IBM Plex Sans / Mono, Space Grotesk) — no external font requests.
+- **Real contact form** via Web3Forms (no faked submissions), plus a downloadable CV and credentials.
+
+## Tech stack
+
+[Astro 6](https://astro.build) · TypeScript · [Tailwind CSS v4](https://tailwindcss.com) · GitHub Pages
+
+## Project structure
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+  content.config.ts      # projects collection schema (Zod, locale-aware)
+  content/projects/      # one Markdown file per project, per locale
+  i18n/                  # UI strings + home copy (ES / EN)
+  layouts/               # BaseLayout (shared chrome) + ProjectLayout (project mould)
+  components/            # flat section components (Hero, FeaturedProjects, …)
+  pages/                 # routes — ES at /, EN at /en/
+  assets/                # images, optimised by Astro
+  styles/global.css      # Tailwind v4 design tokens (light/dark, accent)
+public/                  # favicon, CV and certificate PDFs
+.github/workflows/       # build → deploy to GitHub Pages
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Local development
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```sh
+npm install
+npm run dev      # dev server at localhost:4321
+npm run build    # production build to ./dist (Zod validates all content here)
+npm run preview  # preview the production build locally
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Adding a project
 
-## 🧞 Commands
+1. Drop the cover and screenshots in `src/assets/projects/<slug>/`.
+2. Create `src/content/projects/<slug>.es.md` and `<slug>.en.md` with the frontmatter the schema expects (`title`, `slug`, `locale`, `accentColor`, `tagline`, `role`, `year`, `stack`, `cover`, …).
+3. Run `npm run build` — Zod validates the frontmatter; a missing field fails the build here, not in production.
 
-All commands are run from the root of the project, from a terminal:
+The project then shows up in the grid and gets its own page in both languages — no layout changes needed.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Deployment
 
-## 👀 Want to learn more?
+Every push to `main` triggers a GitHub Actions workflow that builds the site and deploys it to GitHub Pages. The domain lives in a single place (`site` in `astro.config.mjs`); everything absolute (canonical URL, `hreflang`) is derived from it.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+
+Built with Astro — and a soft spot for smart technical decisions.
