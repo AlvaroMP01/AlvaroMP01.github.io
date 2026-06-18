@@ -25,7 +25,7 @@ export const ui = {
     },
     mobileNavAria: 'Menú',
     footer: {
-      role: 'Desarrollador Fullstack · España',
+      role: 'Desarrollador Fullstack · Granada, España',
       rights: 'Todos los derechos reservados.'
     },
     project: {
@@ -60,7 +60,7 @@ export const ui = {
     },
     mobileNavAria: 'Menu',
     footer: {
-      role: 'Fullstack Developer · Spain',
+      role: 'Fullstack Developer · Granada, Spain',
       rights: 'All rights reserved.'
     },
     project: {

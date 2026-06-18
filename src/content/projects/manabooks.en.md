@@ -6,7 +6,7 @@ accentColor: "#E08CB8"
 tagline: "Personal reading-tracker app: log what you read, filter by status and discover new books with Google Books."
 role: "Fullstack development · personal"
 year: 2026
-stack: ["Next.js", "TypeScript", "Supabase", "Google Books API", "Tailwind"]
+stack: ["Next.js", "TypeScript", "Supabase", "Playwright", "GitHub Actions", "Tailwind"]
 demoUrl: "https://manabooks.vercel.app"
 repoUrl: "https://github.com/AlvaroMP01/Manabooks"
 cover: "../../assets/projects/manabooks/cover.png"
@@ -40,6 +40,10 @@ expressive, with a lot of personality of its own.
   (`--color-mb-*`: pink, cream, purple, mint…) defined with `@theme`, plus
   expressive display fonts (Pacifico, Quicksand) to carry the visual
   identity.
+- **Quality built into the workflow.** Unit tests with Vitest and end-to-end
+  tests with Playwright, orchestrated by a GitHub Actions pipeline that
+  **blocks merges if any test fails**. Authentication uses Google OAuth on top
+  of Supabase.
 
 ## Process & learnings
 

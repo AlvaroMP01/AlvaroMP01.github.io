@@ -32,26 +32,36 @@ export const home = {
       heading: 'Sobre mí',
       kicker: '02 — Perfil',
       bio: [
-        'Soy Álvaro, desarrollador fullstack con 1–2 años construyendo aplicaciones web completas. Titulado en FP de Desarrollo de Aplicaciones Web (DAW) y certificado en IA.',
-        'Me muevo cómodo entre el frontend y el backend, y disfruto la parte de decidir: qué stack, qué arquitectura, qué se simplifica. Abierto a varios roles — frontend, backend o fullstack — sin perder foco.'
+        'Desarrollador fullstack afincado en Granada, abierto a remoto. Titulado en FP Superior de Desarrollo de Aplicaciones Web (DAW) y certificado en Desarrollo con IA aplicada a producción.',
+        'En mis prácticas en DoctorSEO integré modelos generativos de IA (imagen y texto) en proyectos web reales —de la configuración al despliegue— además de paneles de administración y landing pages con React, Node.js y Python. Busco mi primer rol como desarrollador, y disfruto la parte de decidir: qué stack, qué arquitectura, qué se simplifica.'
       ],
       credentials: [
         {
           title: 'Certificación en IA',
-          detail: 'Integración de modelos en producto real',
+          detail: 'Desarrollo con IA: de 0 a producción · BIG School',
           highlight: true
         },
         {
-          title: 'FP DAW',
+          title: 'FP Superior DAW',
           detail: 'Desarrollo de Aplicaciones Web — titulado',
+          highlight: false
+        },
+        {
+          title: 'Inglés B2',
+          detail: 'First Certificate · Cambridge',
+          highlight: false
+        },
+        {
+          title: 'Soft Skills Pro',
+          detail: 'Evaluación · Kodo People',
           highlight: false
         }
       ],
       skills: [
-        { group: 'Frontend', count: '06', items: ['React', 'TypeScript', 'Astro', 'Tailwind', 'HTML5', 'CSS'] },
+        { group: 'Frontend', count: '07', items: ['React', 'Next.js', 'TypeScript', 'Astro', 'Tailwind', 'HTML5', 'CSS'] },
         { group: 'Backend', count: '05', items: ['Python', 'Flask', 'Node.js', 'REST APIs', 'Auth'] },
-        { group: 'Datos', count: '03', items: ['MySQL', 'SQL', 'SQLAlchemy'] },
-        { group: 'Tooling · IA', count: '05', items: ['Git', 'GitHub Actions', 'Docker', 'LLM APIs', 'Prompt design'] }
+        { group: 'Datos', count: '05', items: ['MySQL', 'PostgreSQL', 'Supabase', 'SQL', 'SQLAlchemy'] },
+        { group: 'Tooling · IA', count: '06', items: ['Git', 'GitHub Actions', 'Docker', 'Linux / Bash', 'LLM APIs', 'Prompt design'] }
       ]
     },
     process: {
@@ -119,26 +129,36 @@ export const home = {
       heading: 'About me',
       kicker: '02 — Profile',
       bio: [
-        "I'm Álvaro, a fullstack developer with 1–2 years building complete web apps. Graduate in Web Application Development (DAW) and AI-certified.",
-        "I'm comfortable across frontend and backend, and I enjoy the deciding part: which stack, which architecture, what to simplify. Open to several roles — frontend, backend or fullstack — without losing focus."
+        'Fullstack developer based in Granada, open to remote. Graduate of the higher vocational degree in Web Application Development (DAW) and certified in AI applied to production.',
+        "During my placement at DoctorSEO I integrated generative AI models (image and text) into real client web projects —from setup to production— plus admin panels and landing pages built with React, Node.js and Python. I'm looking for my first developer role, and I enjoy the deciding part: which stack, which architecture, what to simplify."
       ],
       credentials: [
         {
           title: 'AI Certification',
-          detail: 'Integrating models into real product',
+          detail: 'AI from zero to production · BIG School',
           highlight: true
         },
         {
-          title: 'FP DAW',
+          title: 'Higher VET — DAW',
           detail: 'Web Application Development — graduate',
+          highlight: false
+        },
+        {
+          title: 'English B2',
+          detail: 'First Certificate · Cambridge',
+          highlight: false
+        },
+        {
+          title: 'Soft Skills Pro',
+          detail: 'Assessment · Kodo People',
           highlight: false
         }
       ],
       skills: [
-        { group: 'Frontend', count: '06', items: ['React', 'TypeScript', 'Astro', 'Tailwind', 'HTML5', 'CSS'] },
+        { group: 'Frontend', count: '07', items: ['React', 'Next.js', 'TypeScript', 'Astro', 'Tailwind', 'HTML5', 'CSS'] },
         { group: 'Backend', count: '05', items: ['Python', 'Flask', 'Node.js', 'REST APIs', 'Auth'] },
-        { group: 'Data', count: '03', items: ['MySQL', 'SQL', 'SQLAlchemy'] },
-        { group: 'Tooling · AI', count: '05', items: ['Git', 'GitHub Actions', 'Docker', 'LLM APIs', 'Prompt design'] }
+        { group: 'Data', count: '05', items: ['MySQL', 'PostgreSQL', 'Supabase', 'SQL', 'SQLAlchemy'] },
+        { group: 'Tooling · AI', count: '06', items: ['Git', 'GitHub Actions', 'Docker', 'Linux / Bash', 'LLM APIs', 'Prompt design'] }
       ]
     },
     process: {

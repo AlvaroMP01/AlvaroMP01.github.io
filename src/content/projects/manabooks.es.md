@@ -6,7 +6,7 @@ accentColor: "#E08CB8"
 tagline: "App personal de seguimiento de lectura: registra lo que lees, filtra por estado y descubre libros nuevos con Google Books."
 role: "Desarrollo fullstack · personal"
 year: 2026
-stack: ["Next.js", "TypeScript", "Supabase", "Google Books API", "Tailwind"]
+stack: ["Next.js", "TypeScript", "Supabase", "Playwright", "GitHub Actions", "Tailwind"]
 demoUrl: "https://manabooks.vercel.app"
 repoUrl: "https://github.com/AlvaroMP01/Manabooks"
 cover: "../../assets/projects/manabooks/cover.png"
@@ -42,6 +42,10 @@ nuevos a través de Google Books. La identidad visual es deliberadamente
   (`--color-mb-*`: rosa, crema, morado, menta…) definida con `@theme`, más
   tipografías display expresivas (Pacifico, Quicksand) para reforzar la
   identidad visual.
+- **Calidad como parte del flujo.** Tests unitarios con Vitest y end-to-end con
+  Playwright, orquestados por un pipeline de GitHub Actions que **bloquea los
+  merges si algún test falla**. La autenticación va con Google OAuth sobre
+  Supabase.
 
 ## Proceso y aprendizajes
 
