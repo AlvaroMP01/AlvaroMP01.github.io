@@ -9,11 +9,13 @@ year: 2026
 stack: ["Next.js", "TypeScript", "Supabase", "Playwright", "GitHub Actions", "Tailwind"]
 demoUrl: "https://manabooks.vercel.app"
 repoUrl: "https://github.com/AlvaroMP01/Manabooks"
-cover: "../../assets/projects/manabooks/cover.png"
+cover: "../../assets/projects/manabooks/home.jpg"
 screenshots:
-  - "../../assets/projects/manabooks/shot-1.png"
-  - "../../assets/projects/manabooks/shot-2.png"
-  - "../../assets/projects/manabooks/shot-3.png"
+  - "../../assets/projects/manabooks/library.jpg"
+  - "../../assets/projects/manabooks/book-details.jpg"
+  - "../../assets/projects/manabooks/search.jpg"
+  - "../../assets/projects/manabooks/progress.jpg"
+  - "../../assets/projects/manabooks/profile.jpg"
 featured: true
 order: 2
 ---
